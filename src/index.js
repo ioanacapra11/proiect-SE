@@ -1,13 +1,26 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './index.css';
-import App from './App';
-import reportWebVitals from './reportWebVitals';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import "./index.css";
+import { FirstPage } from "./components/firstPage/FirstPage";
+import reportWebVitals from "./reportWebVitals";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import { SecondPage } from "./components/secondPage/SecondPage";
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const browserRouter = createBrowserRouter([
+  {
+    path: "/",
+    element: <FirstPage />,
+  },
+  {
+    path: "/filter",
+    element: <SecondPage />,
+  },
+]);
+
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={browserRouter} />
   </React.StrictMode>
 );
 
