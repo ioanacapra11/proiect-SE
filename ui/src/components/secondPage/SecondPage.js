@@ -16,8 +16,9 @@ import { Link } from "react-router-dom";
 export const SecondPage = () => {
   const formik = useFormik({
     initialValues: {
-      showType: "movie",
-      type: "independent",
+      minimum_rating: "1",
+      maximum_rating: "1",
+      original_language: "",
     },
     onSubmit: async (values) => {
       console.log(values);
@@ -43,34 +44,58 @@ export const SecondPage = () => {
       >
         <form onSubmit={formik.handleSubmit} className="form-secondPage">
           <FormControl fullWidth>
-            <InputLabel id="showType-label">Show Type</InputLabel>
+            <InputLabel id="minimum_rating-label">Minimum rating</InputLabel>
             <Select
-              labelId="showType-label"
-              id="showType"
-              name="showType"
-              label="showType"
-              value={formik.values.showType}
+              labelId="minimum_rating-label"
+              id="minimum_rating"
+              name="minimum_rating"
+              label="minimum_rating"
+              value={formik.values.minimum_rating}
               onChange={formik.handleChange}
             >
-              <MenuItem value="movie">movie</MenuItem>
-              <MenuItem value="series">series</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="6">6</MenuItem>
+              <MenuItem value="7">7</MenuItem>
+              <MenuItem value="8">8</MenuItem>
+              <MenuItem value="9">9</MenuItem>
+              <MenuItem value="10">10</MenuItem>
             </Select>
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel id="type-label">Type</InputLabel>
+            <InputLabel id="maximum_rating-label">Maximum rating</InputLabel>
             <Select
-              labelId="type-label"
-              id="type"
-              name="type"
-              label="type"
-              value={formik.values.type}
+              labelId="maximum_rating-label"
+              id="maximum_rating"
+              name="maximum_rating"
+              label="maximum_rating"
+              value={formik.values.maximum_rating}
               onChange={formik.handleChange}
             >
-              <MenuItem value="independent">independent</MenuItem>
-              <MenuItem value="hollywood">hollywood</MenuItem>
-              <MenuItem value="award-winning">award-winning</MenuItem>
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="6">6</MenuItem>
+              <MenuItem value="7">7</MenuItem>
+              <MenuItem value="8">8</MenuItem>
+              <MenuItem value="9">9</MenuItem>
+              <MenuItem value="10">10</MenuItem>
             </Select>
           </FormControl>
+          <TextField
+            id="original_language"
+            label="Original language"
+            variant="standard"
+            onChange={formik.handleChange}
+            value={formik.values.original_language}
+            name="original_language"
+            sx={{ width: "700px", marginBottom: "20px" }}
+          />
           <Box
             sx={{
               display: "flex",
