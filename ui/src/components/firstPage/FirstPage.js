@@ -15,8 +15,8 @@ export const FirstPage = () => {
   const formik = useFormik({
     initialValues: {
       genre: "",
-      actors: "",
-      director: "",
+      release_date: "",
+      vote_average: "",
     },
     onSubmit: async (values) => {
       console.log(values);
@@ -55,21 +55,21 @@ export const FirstPage = () => {
             sx={{ width: "700px" }}
           />
           <TextField
-            id="actors"
-            label="Actors"
+            id="release_date"
+            label="Release Date"
             variant="standard"
             onChange={formik.handleChange}
-            value={formik.values.actors}
-            name="actors"
+            value={formik.values.release_date}
+            name="release_date"
             sx={{ width: "700px" }}
           />
           <TextField
-            id="director"
-            label="Director"
+            id="vote_average"
+            label="Vote Average"
             variant="standard"
             onChange={formik.handleChange}
-            value={formik.values.director}
-            name="director"
+            value={formik.values.vote_average}
+            name="vote_average"
             sx={{ width: "700px" }}
           />
           <Box
