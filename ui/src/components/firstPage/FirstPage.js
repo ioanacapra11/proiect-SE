@@ -1,27 +1,45 @@
-import React from "react";
 import {
-  Paper,
   Box,
-  Typography,
-  Divider,
-  TextField,
   Button,
+  Divider,
+  FormControl,
+  InputLabel,
+  MenuItem,
+  Paper,
+  Select,
+  TextField,
+  Typography,
 } from "@mui/material";
+import axios from "axios";
 import { useFormik } from "formik";
-
+import React, { useEffect, useState } from "react";
+import { constants, years } from "../../constants";
 import "./FirstPage.css";
-import { Link } from "react-router-dom";
+
 export const FirstPage = () => {
+  const [movieGenres, setMovieGenres] = useState([]);
   const formik = useFormik({
     initialValues: {
       genre: "",
       release_date: "",
-      vote_average: "",
+      minimum_rating: "1",
+      maximum_rating: "1",
+      language: "",
     },
     onSubmit: async (values) => {
       console.log(values);
     },
   });
+
+  useEffect(() => {
+    const fetchGenres = async () => {
+      const res = await axios(`${constants.URL}/movie-genres`);
+      setMovieGenres(res.data);
+    };
+
+    fetchGenres();
+  }, []);
+
   return (
     <Paper
       sx={{
@@ -45,33 +63,104 @@ export const FirstPage = () => {
         </Typography>
         <Divider sx={{ width: "50%", backgroundColor: "##008B8B" }} />
         <form onSubmit={formik.handleSubmit} className="form-firstPage">
-          <TextField
-            id="genre"
-            label="Genre"
-            variant="standard"
-            onChange={formik.handleChange}
-            value={formik.values.genre}
-            name="genre"
-            sx={{ width: "700px" }}
-          />
-          <TextField
-            id="release_date"
-            label="Release Date"
-            variant="standard"
-            onChange={formik.handleChange}
-            value={formik.values.release_date}
-            name="release_date"
-            sx={{ width: "700px" }}
-          />
-          <TextField
-            id="vote_average"
-            label="Vote Average"
-            variant="standard"
-            onChange={formik.handleChange}
-            value={formik.values.vote_average}
-            name="vote_average"
-            sx={{ width: "700px" }}
-          />
+          <FormControl fullWidth>
+            <InputLabel id="genres-label">Genres</InputLabel>
+            <Select
+              labelId="genres-label"
+              id="genre"
+              name="genre"
+              label="genre"
+              value={formik.values.genre}
+              onChange={formik.handleChange}
+            >
+              {movieGenres.map((genre) => (
+                <MenuItem key={genre._id} value={genre.name}>
+                  {genre.name}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="release-date-label">Release Year</InputLabel>
+            <Select
+              labelId="release-date-label"
+              id="release_date"
+              name="release_date"
+              label="release_date"
+              value={formik.values.release_date}
+              onChange={formik.handleChange}
+            >
+              {years.map((year) => (
+                <MenuItem key={year} value={year}>
+                  {year}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="minimum_rating-label">Minimum rating</InputLabel>
+            <Select
+              labelId="minimum_rating-label"
+              id="minimum_rating"
+              name="minimum_rating"
+              label="minimum_rating"
+              value={formik.values.minimum_rating}
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="6">6</MenuItem>
+              <MenuItem value="7">7</MenuItem>
+              <MenuItem value="8">8</MenuItem>
+              <MenuItem value="9">9</MenuItem>
+              <MenuItem value="10">10</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="maximum_rating-label">Maximum rating</InputLabel>
+            <Select
+              labelId="maximum_rating-label"
+              id="maximum_rating"
+              name="maximum_rating"
+              label="maximum_rating"
+              value={formik.values.maximum_rating}
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="1">1</MenuItem>
+              <MenuItem value="2">2</MenuItem>
+              <MenuItem value="3">3</MenuItem>
+              <MenuItem value="4">4</MenuItem>
+              <MenuItem value="5">5</MenuItem>
+              <MenuItem value="6">6</MenuItem>
+              <MenuItem value="7">7</MenuItem>
+              <MenuItem value="8">8</MenuItem>
+              <MenuItem value="9">9</MenuItem>
+              <MenuItem value="10">10</MenuItem>
+            </Select>
+          </FormControl>
+          <FormControl fullWidth>
+            <InputLabel id="language-label">Language</InputLabel>
+            <Select
+              labelId="language-label"
+              id="language"
+              name="language"
+              label="language"
+              value={formik.values.language}
+              onChange={formik.handleChange}
+            >
+              <MenuItem value="en">en</MenuItem>
+              <MenuItem value="es">es</MenuItem>
+              <MenuItem value="it">it</MenuItem>
+              <MenuItem value="ja">ja</MenuItem>
+              <MenuItem value="uk">uk</MenuItem>
+              <MenuItem value="ko">ko</MenuItem>
+              <MenuItem value="de">de</MenuItem>
+              <MenuItem value="fr">fr</MenuItem>
+            </Select>
+          </FormControl>
           <Box
             sx={{
               display: "flex",
@@ -92,9 +181,7 @@ export const FirstPage = () => {
                 marginLeft: "580px",
               }}
             >
-              <Link to="/filter" className="link">
-                Next
-              </Link>
+              Submit
             </Button>
           </Box>
         </form>

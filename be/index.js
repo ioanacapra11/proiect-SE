@@ -5,14 +5,18 @@ const MovieDB = require("node-themoviedb");
 const movieGenre = require("./models/movieGenre");
 const Movie = require("./models/movie");
 const movieRouter = require("./routes/movie");
+const movieGenresRouter = require("./routes/movieGenres");
 const mdb = new MovieDB("508eab5114758447c19cf43c80dfb2c0", {});
+const cors = require("cors");
 
 const app = express();
 
 const PORT = 1234;
 
+app.use(cors({ origin: true }));
 app.use(bodyParser.json());
 app.use("/movies", movieRouter);
+app.use("/movie-genres", movieGenresRouter);
 
 const getMovieGenre = async () => {
   try {
