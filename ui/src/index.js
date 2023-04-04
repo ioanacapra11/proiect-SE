@@ -4,16 +4,21 @@ import "./index.css";
 import { FirstPage } from "./components/firstPage/FirstPage";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import { SecondPage } from "./components/secondPage/SecondPage";
+import { MoviesOrSeries } from "./components/MoviesOrSeries/MoviesOrSeries";
+import { Movies } from "./components/Movies/Movies";
 
 const browserRouter = createBrowserRouter([
   {
-    path: "/",
+    path: "/movies",
     element: <FirstPage />,
   },
   {
-    path: "/filter",
-    element: <SecondPage />,
+    path: "/movies-list",
+    element: <Movies />,
+  },
+  {
+    path: "/",
+    element: <MoviesOrSeries />,
   },
 ]);
 
