@@ -7,27 +7,36 @@ import {
   MenuItem,
   Paper,
   Select,
-  TextField,
   Typography,
 } from "@mui/material";
+
 import axios from "axios";
 import { useFormik } from "formik";
 import React, { useEffect, useState } from "react";
-import { constants, years } from "../../constants";
+import { useNavigate } from "react-router-dom";
+import { constants, ratings, years } from "../../constants";
 import "./FirstPage.css";
 
 export const FirstPage = () => {
   const [movieGenres, setMovieGenres] = useState([]);
+  const navigate = useNavigate();
   const formik = useFormik({
     initialValues: {
       genre: "",
       release_date: "",
-      minimum_rating: "1",
-      maximum_rating: "1",
+      rating: "",
       language: "",
     },
     onSubmit: async (values) => {
       console.log(values);
+      let arr = [];
+      for (let i = 1; i <= 3; i++) {
+        const res = await axios.get(`${constants.URL}/movies?page=${i}`);
+        arr.push(...res.data);
+      }
+      navigate("/movies-list", {
+        state: { movies: arr },
+      });
     },
   });
 
@@ -45,8 +54,8 @@ export const FirstPage = () => {
       sx={{
         display: "flex",
         alignItems: "center",
-        height: "100vh",
         backgroundColor: "#E0FFFF",
+        height: "100vh",
       }}
     >
       <Box
@@ -98,47 +107,20 @@ export const FirstPage = () => {
             </Select>
           </FormControl>
           <FormControl fullWidth>
-            <InputLabel id="minimum_rating-label">Minimum rating</InputLabel>
+            <InputLabel id="rating-label">Rating</InputLabel>
             <Select
-              labelId="minimum_rating-label"
-              id="minimum_rating"
-              name="minimum_rating"
-              label="minimum_rating"
-              value={formik.values.minimum_rating}
+              labelId="rating-label"
+              id="rating"
+              name="rating"
+              label="rating"
+              value={formik.values.rating}
               onChange={formik.handleChange}
             >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-              <MenuItem value="3">3</MenuItem>
-              <MenuItem value="4">4</MenuItem>
-              <MenuItem value="5">5</MenuItem>
-              <MenuItem value="6">6</MenuItem>
-              <MenuItem value="7">7</MenuItem>
-              <MenuItem value="8">8</MenuItem>
-              <MenuItem value="9">9</MenuItem>
-              <MenuItem value="10">10</MenuItem>
-            </Select>
-          </FormControl>
-          <FormControl fullWidth>
-            <InputLabel id="maximum_rating-label">Maximum rating</InputLabel>
-            <Select
-              labelId="maximum_rating-label"
-              id="maximum_rating"
-              name="maximum_rating"
-              label="maximum_rating"
-              value={formik.values.maximum_rating}
-              onChange={formik.handleChange}
-            >
-              <MenuItem value="1">1</MenuItem>
-              <MenuItem value="2">2</MenuItem>
-              <MenuItem value="3">3</MenuItem>
-              <MenuItem value="4">4</MenuItem>
-              <MenuItem value="5">5</MenuItem>
-              <MenuItem value="6">6</MenuItem>
-              <MenuItem value="7">7</MenuItem>
-              <MenuItem value="8">8</MenuItem>
-              <MenuItem value="9">9</MenuItem>
-              <MenuItem value="10">10</MenuItem>
+              {ratings.map((rating) => (
+                <MenuItem key={rating} value={rating}>
+                  {rating}
+                </MenuItem>
+              ))}
             </Select>
           </FormControl>
           <FormControl fullWidth>
@@ -161,29 +143,20 @@ export const FirstPage = () => {
               <MenuItem value="fr">fr</MenuItem>
             </Select>
           </FormControl>
-          <Box
+          <Button
+            variant="contained"
+            type="submit"
             sx={{
-              display: "flex",
-              alignItems: "center",
-              justifyContent: "space-between",
+              backgroundColor: "black",
+              borderRadius: "50px",
+              padding: "10px 50px",
+              color: "white",
+              textTransform: "capitalize",
+              fontFamily: "inherit",
             }}
           >
-            <Button
-              variant="contained"
-              type="submit"
-              sx={{
-                backgroundColor: "black",
-                borderRadius: "50px",
-                padding: "10px 50px",
-                color: "white",
-                textTransform: "capitalize",
-                fontFamily: "inherit",
-                marginLeft: "580px",
-              }}
-            >
-              Submit
-            </Button>
-          </Box>
+            Submit
+          </Button>
         </form>
       </Box>
     </Paper>

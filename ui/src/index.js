@@ -5,11 +5,16 @@ import { FirstPage } from "./components/firstPage/FirstPage";
 import reportWebVitals from "./reportWebVitals";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { MoviesOrSeries } from "./components/MoviesOrSeries/MoviesOrSeries";
+import { Movies } from "./components/Movies/Movies";
 
 const browserRouter = createBrowserRouter([
   {
     path: "/movies",
     element: <FirstPage />,
+  },
+  {
+    path: "/movies-list",
+    element: <Movies />,
   },
   {
     path: "/movies-series",

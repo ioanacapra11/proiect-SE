@@ -16,7 +16,7 @@ export const MoviesOrSeries = () => {
         gap: "100px",
       }}
     >
-      <Typography variant="h2">Find movies or series</Typography>
+      <Typography variant="h2">Movies or series?</Typography>
       <Box
         sx={{
           display: "flex",
