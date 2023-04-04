@@ -16,7 +16,7 @@ export const MoviesOrSeries = () => {
         gap: "100px",
       }}
     >
-      <Typography variant="h2">Movies or series?</Typography>
+      <Typography variant="h2">Choose a movie</Typography>
       <Box
         sx={{
           display: "flex",
@@ -39,20 +39,6 @@ export const MoviesOrSeries = () => {
           }}
         >
           Movies
-        </Button>
-        <Button
-          variant="contained"
-          type="submit"
-          sx={{
-            backgroundColor: "black",
-            borderRadius: "50px",
-            padding: "10px 50px",
-            color: "white",
-            textTransform: "capitalize",
-            fontFamily: "inherit",
-          }}
-        >
-          Series
         </Button>
       </Box>
     </Paper>

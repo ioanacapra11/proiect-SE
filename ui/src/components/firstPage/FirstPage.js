@@ -28,14 +28,29 @@ export const FirstPage = () => {
       language: "",
     },
     onSubmit: async (values) => {
-      console.log(values);
       let arr = [];
-      for (let i = 1; i <= 3; i++) {
+      for (let i = 1; i <= 200; i++) {
         const res = await axios.get(`${constants.URL}/movies?page=${i}`);
         arr.push(...res.data);
       }
+      const filtered = arr.filter((movie) => {
+        const splitRatings = values.rating.split("-");
+        const splitYear = values.release_date.split("-");
+        console.log(movie, movie.release_date);
+        let splitReleaseDate = movie.release_date.split("-");
+        let genre = movieGenres.find((g) => g.name === values.genre);
+        return (
+          movie.original_language === values.language &&
+          movie.vote_average >= splitRatings[0] &&
+          movie.vote_average <= splitRatings[1] &&
+          splitReleaseDate[0] >= splitYear[0] &&
+          splitReleaseDate[0] <= splitYear[1] &&
+          movie.genre_ids.includes(Number(genre.id))
+        );
+      });
+      debugger;
       navigate("/movies-list", {
-        state: { movies: arr },
+        state: { movies: filtered },
       });
     },
   });

@@ -1,6 +1,7 @@
 import React from "react";
 import { DataGrid } from "@mui/x-data-grid";
 import { useLocation } from "react-router-dom";
+import { Box, Typography } from "@mui/material";
 
 const columns = [
   { field: "title", headerName: "Title", width: 300 },
@@ -10,11 +11,18 @@ const columns = [
   { field: "original_language", headerName: "Language", width: 90 },
 ];
 
-export const Movies = ({ movies }) => {
+export const Movies = () => {
   const location = useLocation();
-  debugger;
   return (
-    <div style={{ height: 400, width: "80%" }}>
+    <Box
+      sx={{
+        height: 400,
+        width: "80%",
+        backgroundColor: "#E0FFFF",
+        marginX: "auto",
+        marginTop: "100px",
+      }}
+    >
       <DataGrid
         rows={location.state.movies}
         columns={columns}
@@ -22,6 +30,6 @@ export const Movies = ({ movies }) => {
         rowsPerPageOptions={[10]}
         getRowId={(row) => row._id}
       />
-    </div>
+    </Box>
   );
 };
